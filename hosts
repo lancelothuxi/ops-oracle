@@ -1,0 +1,10 @@
+# 需要进行expdp、表空间统计、日志清理、alert分析的服务器ip
+[all_do_db]
+10.0.0.11
+# 不需要进行expdp和表空间统计，但需要日志清理、alert分析的服务器ip
+[only_do_db]
+10.0.0.22
+
+[dbs:children]
+all_do_db
+only_do_db

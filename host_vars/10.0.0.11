@@ -1,0 +1,14 @@
+account: system/orcl
+expdpfile_days: 7d
+expdp_dir: expdp_dir
+expdp_dir_os: /home/oracle/expdp_dir
+schemas: user
+dbserver: OA-TEST-PRIMARY_10.0.0.11
+mailreceiver: ADMIN@mail.com
+listenerlog_path: /u01/app/oracle/diag/tnslsnr/oatest-primry01/listener/trace
+listenerlog_name: listener.log
+listener_xml_log_path: /u01/app/oracle/diag/tnslsnr/oatest-primry01/listener/alert
+
+trc_trm_log_path: /u01/app/oracle/diag/rdbms/db01/oa/trace
+alertlog_name: alert_oa.log
+auditlog_path: /u01/app/oracle/admin/oa/adump

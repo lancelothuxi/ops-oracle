@@ -1,0 +1,17 @@
+- name: grep alter log file
+  shell: grep -Eic 'error|ora-' {{ alertlog_name }}  chdir={{ trc_trm_log_path }}
+  register: out_info
+  ignore_errors: True
+
+- name: If error in log file
+  shell: cat {{ alertlog_name }} > err_alter.log{{ out_info.start.replace(' ','_').replace(':','')[0:17] }}  chdir={{ trc_trm_log_path }} && echo ''> {{ alertlog_name }}  &&  cat err_alter.log{{ out_info.start.replace(' ','_').replace(':','')[0:17] }}
+  register: err_out
+  notify:
+    - send mail
+  when: out_info.stdout >"0"
+
+
+- name: No error in log file 
+  shell: cat {{ alertlog_name }} >> backup_{{ alertlog_name }}  chdir={{ trc_trm_log_path }} && echo ''> {{ alertlog_name }} 
+  when: out_info.stdout == "0"
+

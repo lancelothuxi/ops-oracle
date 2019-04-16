@@ -1,0 +1,31 @@
+- name: find expired  backup file before  day ago
+  find:
+    paths: "{{ expdp_dir_os }}"
+    age: "{{ expdpfile_days }}"
+    patterns: '*.dmp,*.log'
+    file_type: file
+    recurse: yes
+  register: logfiles
+
+- name: delete  logfiles with find
+  #debug: msg="{{logfiles}}"
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: 
+    - "{{logfiles.files}}"
+
+- name: get backup date
+  shell: date +"%y%m%d"
+  register: date
+
+- name: copy expdp script to remote server
+  template:
+    src: roles/common/templates/expdp.j2
+    dest: "{{ expdp_dir_os }}/expdp.sh"
+
+- name: do exdpdp
+  shell:  /bin/bash expdp.sh chdir="{{ expdp_dir_os }}" && cat expdp"{{ date.stdout }}".log
+  register: out_info
+  notify:
+    - send mail to dba

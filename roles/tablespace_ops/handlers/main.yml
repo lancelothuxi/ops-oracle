@@ -1,0 +1,6 @@
+- name: send mail to dba
+  include_tasks: roles/common/handlers/mail.yml
+  vars:
+    mailsubject: "{{ dbserver }} TBS usage rate"
+    mailbody: "<h3>tablespace used space</h3><table border=\"1\"><tr><td>TABLESPACE_NAME</td><td>TOTAL_M</td><td>FREE_M</td><td>USE_M</td><td>USED%</td></tr>{{ tbs_info.stdout }}</table><br/><font size=\"5\" color=\"red\">Top 10 of big objects:</font><br/><table border=\"1\"><tr><td>OWNER</td><td>SEGMENT_NAME</td><td>SEGMENT_TYPE</td><td>USED_SPACE_M</tr>{{ big_info.stdout }}</table>"
+    subtype: "html"

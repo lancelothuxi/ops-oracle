@@ -1,0 +1,13 @@
+- name: cp shell script to target server
+  copy: src=.  dest=/tmp/ owner=root 
+  #copy: src=get_tablespace_usage.sh dest=/tmp
+
+- name: execute tablespace shell script
+  raw: sh /tmp/get_tablespace_usage.sh
+  register: tbs_info
+
+- name: execute big_object shell script
+  raw: sh /tmp/get_big_object.sh
+  register: big_info
+  notify: 
+  - send mail to dba

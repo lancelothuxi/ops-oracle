@@ -1,0 +1,6 @@
+- name: send mail
+  include_tasks: roles/common/handlers/mail.yml
+  vars:
+    mailsubject: "{{ dbserver}}_errlog"
+    mailbody: "{{ err_out.stdout }}"
+    subtype: "plain"

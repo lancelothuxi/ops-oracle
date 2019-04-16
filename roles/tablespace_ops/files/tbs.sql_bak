@@ -1,0 +1,6 @@
+select '<tr><td>'||tablespace_name||'</td>',
+ '<td>'||round(tablespace_size*(select value from v$parameter where name='db_block_size')/1024/1024,2)||'</td>' TOTAL_M,
+ '<td>'||round((tablespace_size - used_space)*(select value from v$parameter where name='db_block_size')/1024/1024,2)||'</td>' FREE_M,
+       '<td>'||round(used_space*(select value from v$parameter where name='db_block_size')/1024/1024,2)||'</td>' USED_M,
+       '<td>'||round(used_percent,2)||'</td></tr>' as "USED%" 
+from dba_tablespace_usage_metrics order by used_space desc;

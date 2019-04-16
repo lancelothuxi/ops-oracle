@@ -1,0 +1,6 @@
+- name: send mail to dba
+  include_tasks: roles/common/handlers/mail.yml
+  vars:
+    mailsubject: "{{ dbserver }} Expdp_log"
+    mailbody: "{{ out_info.stdout }}"
+    subtype: "plain"

@@ -1,0 +1,36 @@
+- name: get backup date
+  shell: date  +"%y%m%d"
+  register: date
+
+- name: baupup log file by day
+  #debug: msg={{date.stdout}}
+  shell: cat {{ item.log_name}} >> bak_{{date.stdout}}_{{item.log_name}} && echo '' > {{item.log_name}} chdir={{item.log_path}}
+  with_items:
+    - { log_name: "{{ listenerlog_name }}", log_path: "{{listenerlog_path}}" }
+
+- name: find logfile before 15 day ago
+  find:
+    paths: "{{item.log_path}}"
+    age: 15d
+    patterns: '*.trc,*.trm,*.log,*.log*,*.xml,*.aud'
+    file_type: file
+    recurse: yes
+  with_items:
+    - log_path: "{{ trc_trm_log_path }}"
+    - log_path: "{{ listener_xml_log_path }}"
+    - log_path: "{{ auditlog_path }}"
+    - log_path: "{{ listenerlog_path }}"
+    - log_path: "{{ expdp_dir_os }}"
+  register: logfiles
+
+- name: delete  logfiles with find
+#  debug: msg="{{logfiles.results}}"
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: 
+    - "{{logfiles.results[0].files}}"
+    - "{{logfiles.results[1].files}}"
+    - "{{logfiles.results[2].files}}"
+    - "{{logfiles.results[3].files}}"
+    - "{{logfiles.results[4].files}}"

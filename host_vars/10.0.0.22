@@ -1,0 +1,14 @@
+account: 
+expdpfile_days: 
+expdp_dir: 
+expdp_dir_os: 
+schemas: 
+dbserver: OA-TEST-PRIMARY_10.0.0.22
+mailreceiver: ADMIN@mail.com
+listenerlog_path: /u01/app/oracle/diag/tnslsnr/oatest-standby02/listener/trace
+listenerlog_name: listener.log
+listener_xml_log_path: /u01/app/oracle/diag/tnslsnr/oatest-standby02/listener/alert
+trc_trm_log_path: /u01/app/oracle/diag/rdbms/db02/oa/trace
+alertlog_name: alert_oa.log
+auditlog_path: /u01/app/oracle/admin/oa/adump
+

@@ -1,0 +1,12 @@
+# 邮件功能 相关配置
+- name: send mail
+  mail:
+    host: mail_server_ip
+    port: 25
+    username: sender@mail.com
+    #password: passwd 
+    from: sender@mail.com
+    to: "{{ mailreceiver }}"
+    subject: "{{ mailsubject }}"
+    subtype: "{{ subtype }}"
+    body: "{{ mailbody }}"

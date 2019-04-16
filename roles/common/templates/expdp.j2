@@ -1,0 +1,2 @@
+#!/bin/bash
+su - oracle -l -c "expdp {{ account }} DIRECTORY={{ expdp_dir }} dumpfile={{ date.stdout }}_{{ dbserver }}%U.dmp schemas={{ schemas }} logfile=expdp{{ date.stdout }}.log exclude=statistics parallel=4 compression=DATA_ONLY cluster=N"

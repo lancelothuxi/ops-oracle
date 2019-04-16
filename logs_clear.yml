@@ -1,0 +1,4 @@
+- hosts: dbs
+  gather_facts:  false
+  roles:
+  - logs_clear
